@@ -70,7 +70,7 @@ fun MainNavHost() {
                     .padding(it)
                     .fillMaxSize(),
             navController = navController,
-            startDestination = MainNavItems.Welcome.route,
+            startDestination = MainNavItems.Start.route,
         ) {
             addMain(navController = navController)
         }
