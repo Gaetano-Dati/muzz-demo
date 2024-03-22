@@ -10,5 +10,5 @@ data class Message(
     @ColumnInfo(name = "created_at") val createdAt: Long,
     @ColumnInfo(name = "has_been_seen") val hasBeenSeen: Boolean,
     @ColumnInfo(name = "message") val message: String,
-    @ColumnInfo(name = "sent_by") val username: String
+    @ColumnInfo(name = "is_from_me") val isFromMe: Boolean,
 )
