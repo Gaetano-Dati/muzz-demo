@@ -17,7 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.garrodroideveloper.muzzexercise.R
 
 @Composable
-fun MuzzMessage() {
+fun MuzzMessage(onMessageSent: (String) -> Unit) {
     var chatBoxValue by remember { mutableStateOf(TextFieldValue("")) }
     Row {
         TextField(
@@ -32,7 +32,8 @@ fun MuzzMessage() {
         IconButton(
             enabled = chatBoxValue.text.isNotEmpty(),
             onClick = {
-                // TODO: send the message
+                onMessageSent(chatBoxValue.text)
+                chatBoxValue = TextFieldValue("")
             },
         ) {
             Icon(
@@ -46,5 +47,5 @@ fun MuzzMessage() {
 @Preview
 @Composable
 private fun MuzzMessagePreview() {
-    MuzzMessage()
+    MuzzMessage({})
 }
