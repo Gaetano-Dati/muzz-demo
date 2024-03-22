@@ -2,6 +2,7 @@ package com.garrodroideveloper.muzzexercise.shared.inject
 
 import android.content.Context
 import androidx.room.Room
+import com.garrodroideveloper.muzzexercise.storage.dao.MessageDao
 import com.garrodroideveloper.muzzexercise.storage.dao.UserDao
 import com.garrodroideveloper.muzzexercise.storage.database.AppDatabase
 import dagger.Module
@@ -31,5 +32,9 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideUserDao(roomDatabase: AppDatabase): UserDao = roomDatabase.userDao()
+    fun provideUserDao(appDatabase: AppDatabase): UserDao = appDatabase.userDao()
+
+    @Singleton
+    @Provides
+    fun provideMessageDao(appDatabase: AppDatabase): MessageDao = appDatabase.messageDao()
 }

@@ -8,6 +8,6 @@ import androidx.room.PrimaryKey
 data class Message(
     @PrimaryKey(autoGenerate = true) val id: Int,
     @ColumnInfo(name = "created_at") val createdAt: Long,
-    @ColumnInfo(name = "modified_at") val modifiedAt: Long,
+    @ColumnInfo(name = "has_been_seen") val hasBeenSeen: Boolean,
     @ColumnInfo(name = "message") val message: String,
 )
