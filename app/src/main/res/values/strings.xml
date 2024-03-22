@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Muzz Exercise</string>
+    <string name="type_something">Type something</string>
+
+<!--    Content description-->
+    <string name="arrow_back">Arrow back</string>
 </resources>
