@@ -6,17 +6,23 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import com.garrodroideveloper.muzzexercise.R
-import com.garrodroideveloper.muzzexercise.shared.ui.components.MuzzMediumText
+import com.garrodroideveloper.muzzexercise.shared.ui.components.MuzzButton
+import com.garrodroideveloper.muzzexercise.shared.ui.components.MuzzDivider
 
 @Composable
-fun WelcomeScreen() {
+fun WelcomeScreen(onClick: (String) -> Unit) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        MuzzMediumText(value = stringResource(id = R.string.welcome))
+        MuzzButton(name = "User", bottomValue = R.string.go_to_chat) {
+            onClick("User")
+        }
+        MuzzDivider()
+        MuzzButton(name = "Sarah", bottomValue = R.string.go_to_chat) {
+            onClick("Sarah")
+        }
     }
 }
