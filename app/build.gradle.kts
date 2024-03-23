@@ -67,6 +67,7 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.runtime:runtime-livedata")
     implementation("androidx.navigation:navigation-compose")
+    implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
 
     // Hilt
     implementation("com.google.dagger:hilt-android:2.49")
