@@ -1,14 +1,16 @@
 package com.garrodroideveloper.muzzexercise.shared.inject
 
-import android.content.Context
+import android.app.Application
 import androidx.room.Room
+import com.garrodroideveloper.muzzexercise.main.MainRepository
+import com.garrodroideveloper.muzzexercise.main.MainRepositoryImpl
 import com.garrodroideveloper.muzzexercise.storage.dao.MessageDao
 import com.garrodroideveloper.muzzexercise.storage.dao.UserDao
 import com.garrodroideveloper.muzzexercise.storage.database.AppDatabase
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -18,23 +20,27 @@ import javax.inject.Singleton
  * */
 @Module
 @InstallIn(SingletonComponent::class)
-object AppModule {
-    @Singleton
-    @Provides
-    fun provideRoomDatabase(
-        @ApplicationContext context: Context,
-    ): AppDatabase =
-        Room.databaseBuilder(
-            context = context,
-            AppDatabase::class.java,
-            "room_database",
-        ).build()
+abstract class AppModule {
+    companion object {
+        @Singleton
+        @Provides
+        fun provideRoomDatabase(application: Application): AppDatabase =
+            Room.databaseBuilder(
+                application,
+                AppDatabase::class.java,
+                "room_database",
+            ).build()
 
-    @Singleton
-    @Provides
-    fun provideUserDao(appDatabase: AppDatabase): UserDao = appDatabase.userDao()
+        @Singleton
+        @Provides
+        fun provideUserDao(appDatabase: AppDatabase): UserDao = appDatabase.userDao()
 
+        @Singleton
+        @Provides
+        fun provideMessageDao(appDatabase: AppDatabase): MessageDao = appDatabase.messageDao()
+    }
+
+    @Binds
     @Singleton
-    @Provides
-    fun provideMessageDao(appDatabase: AppDatabase): MessageDao = appDatabase.messageDao()
+    abstract fun MainRepositoryImpl.provideMainRepository(): MainRepository
 }
