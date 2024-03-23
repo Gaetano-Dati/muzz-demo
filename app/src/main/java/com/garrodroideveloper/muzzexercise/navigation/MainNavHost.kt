@@ -68,7 +68,7 @@ fun MainNavHost() {
             navController = navController,
             startDestination = MainNavItems.Start.route,
         ) {
-            addMain()
+            addMain(navController)
         }
     }
 }

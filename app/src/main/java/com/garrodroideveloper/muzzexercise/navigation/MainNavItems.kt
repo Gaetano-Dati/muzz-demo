@@ -3,7 +3,7 @@ package com.garrodroideveloper.muzzexercise.navigation
 private enum class MainNavScreen {
     START,
     WELCOME,
-    MAIN,
+    MESSAGE,
 }
 
 sealed class MainNavItems(
@@ -13,5 +13,5 @@ sealed class MainNavItems(
 
     object Welcome : MainNavItems(MainNavScreen.WELCOME.name)
 
-    object Main : MainNavItems(MainNavScreen.MAIN.name)
+    object Message : MainNavItems(MainNavScreen.MESSAGE.name)
 }

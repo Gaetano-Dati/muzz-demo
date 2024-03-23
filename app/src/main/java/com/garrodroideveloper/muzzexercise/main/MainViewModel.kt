@@ -9,7 +9,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel
     @Inject
-    constructor(val mainRepository: MainRepository) : ViewModel() {
+    constructor(private val mainRepository: MainRepository) : ViewModel() {
         fun populateUserDatabase() =
             viewModelScope.launch {
                 mainRepository.populateDatabase()

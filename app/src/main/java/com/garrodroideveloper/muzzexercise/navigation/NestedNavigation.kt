@@ -1,19 +1,32 @@
 package com.garrodroideveloper.muzzexercise.navigation
 
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
-import com.garrodroideveloper.muzzexercise.home.MainScreen
+import androidx.navigation.navArgument
+import com.garrodroideveloper.muzzexercise.home.MessageScreen
 import com.garrodroideveloper.muzzexercise.welcome.WelcomeScreen
 
-fun NavGraphBuilder.addMain() {
+fun NavGraphBuilder.addMain(navHostController: NavHostController) {
     navigation(startDestination = MainNavItems.Welcome.route, route = MainNavItems.Start.route) {
         composable(MainNavItems.Welcome.route) {
             WelcomeScreen { username ->
+                navHostController.navigate(MainNavItems.Message.route.plus("/$username"))
             }
         }
-        composable(MainNavItems.Main.route) {
-            MainScreen()
+        composable(
+            route = MainNavItems.Message.route.plus("/{username}"),
+            arguments =
+                listOf(
+                    navArgument("username") {
+                        type = NavType.StringType
+                    },
+                ),
+        ) { backStackEntry ->
+            val username = backStackEntry.arguments?.getString("username").orEmpty()
+            MessageScreen(username)
         }
     }
 }

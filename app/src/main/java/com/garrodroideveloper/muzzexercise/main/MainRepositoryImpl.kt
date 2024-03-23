@@ -7,13 +7,13 @@ import javax.inject.Inject
 class MainRepositoryImpl
     @Inject
     constructor(
-        val userDao: UserDao,
+        private val userDao: UserDao,
     ) : MainRepository {
         override suspend fun populateDatabase() {
             val usersList = userDao.getAllUsers()
             if (usersList.isEmpty()) {
-                userDao.insertUser(User(firstName = "User"))
-                userDao.insertUser(User(firstName = "Sarah"))
+                userDao.insertUser(User(uid = 0, firstName = "User"))
+                userDao.insertUser(User(uid = 1, firstName = "Sarah"))
             }
         }
     }
