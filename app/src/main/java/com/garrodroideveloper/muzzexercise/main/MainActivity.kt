@@ -1,4 +1,4 @@
-package com.garrodroideveloper.muzzexercise
+package com.garrodroideveloper.muzzexercise.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
