@@ -26,9 +26,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.garrodroideveloper.muzzexercise.R
 
 @Composable
-fun MuzzMessage(onMessageSent: (String) -> Unit) {
+fun MuzzSendMessageBox(
+    modifier: Modifier = Modifier,
+    onMessageSent: (String) -> Unit,
+) {
     var chatBoxValue by remember { mutableStateOf(TextFieldValue("")) }
-    Row {
+    Row(modifier = modifier) {
         TextField(
             value = chatBoxValue,
             onValueChange = { newText ->
@@ -97,8 +100,8 @@ fun MuzzMessageMineItem(text: String) {
 
 @Preview
 @Composable
-private fun MuzzMessagePreview() {
-    MuzzMessage({})
+private fun MuzzSendMessageBoxPreview() {
+    MuzzSendMessageBox(onMessageSent = {})
 }
 
 @Preview
