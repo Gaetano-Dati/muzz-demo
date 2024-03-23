@@ -12,8 +12,8 @@ class MainRepositoryImpl
         override suspend fun populateDatabase() {
             val usersList = userDao.getAllUsers()
             if (usersList.isEmpty()) {
-                userDao.insertUser(User(uid = 0, firstName = "User"))
-                userDao.insertUser(User(uid = 1, firstName = "Sarah"))
+                userDao.insertUser(User(uid = "0", firstName = "User"))
+                userDao.insertUser(User(uid = "1", firstName = "Sarah"))
             }
         }
     }
