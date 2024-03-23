@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    id("kotlin-android")
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -30,18 +32,18 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
         buildConfig = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.4.3"
     }
     packaging {
         resources {
@@ -49,26 +51,32 @@ android {
         }
     }
 }
+kapt {
+    correctErrorTypes = true
+}
 
 dependencies {
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     implementation("androidx.activity:activity-compose:1.8.2")
-    implementation(platform("androidx.compose:compose-bom:2023.08.00"))
+    implementation(platform("androidx.compose:compose-bom:2024.02.01"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.navigation:navigation-compose")
     implementation("androidx.compose.material3:material3")
-
-    // Timber
-    implementation("com.jakewharton.timber:timber:5.0.1")
+    implementation("androidx.compose.runtime:runtime-livedata")
+    implementation("androidx.navigation:navigation-compose")
+    implementation("androidx.compose.material:material-icons-extended")
 
     // Hilt
     implementation("com.google.dagger:hilt-android:2.49")
     implementation("com.google.android.play:app-update-ktx:2.1.0")
+    kapt("com.google.dagger:hilt-android-compiler:2.44")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+
+    // Timber
+    implementation("com.jakewharton.timber:timber:5.0.1")
 
     // Room database
     val room_version = "2.6.1"
