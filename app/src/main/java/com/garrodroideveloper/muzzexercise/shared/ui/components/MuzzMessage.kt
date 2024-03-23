@@ -3,7 +3,9 @@ package com.garrodroideveloper.muzzexercise.shared.ui.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Send
@@ -23,34 +25,48 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.garrodroideveloper.muzzexercise.R
 
 @Composable
 fun MuzzSendMessageBox(
-    modifier: Modifier = Modifier,
     onMessageSent: (String) -> Unit,
+    modifier: Modifier,
 ) {
     var chatBoxValue by remember { mutableStateOf(TextFieldValue("")) }
-    Row(modifier = modifier) {
+    Row(modifier = modifier.padding(dimensionResource(id = R.dimen.single_margin))) {
         TextField(
             value = chatBoxValue,
             onValueChange = { newText ->
                 chatBoxValue = newText
             },
+            modifier =
+                Modifier
+                    .weight(1f)
+                    .padding(4.dp),
+            shape = RoundedCornerShape(24.dp),
             placeholder = {
-                MuzzMediumText(value = stringResource(id = R.string.type_something))
+                MuzzSmallText(value = stringResource(id = R.string.type_something))
             },
         )
         IconButton(
             enabled = chatBoxValue.text.isNotEmpty(),
             onClick = {
+                val msg = chatBoxValue.text
+                if (msg.isBlank()) return@IconButton
                 onMessageSent(chatBoxValue.text)
                 chatBoxValue = TextFieldValue("")
             },
+            modifier =
+                Modifier
+                    .clip(CircleShape)
+                    .background(color = MaterialTheme.colorScheme.primary)
+                    .align(Alignment.CenterVertically),
         ) {
             Icon(
-                Icons.Filled.Send,
-                stringResource(id = R.string.arrow_back),
+                imageVector = Icons.Filled.Send,
+                contentDescription = "Send",
+                modifier = Modifier.fillMaxSize().padding(8.dp),
             )
         }
     }
@@ -101,7 +117,7 @@ fun MuzzMessageMineItem(text: String) {
 @Preview
 @Composable
 private fun MuzzSendMessageBoxPreview() {
-    MuzzSendMessageBox(onMessageSent = {})
+    MuzzSendMessageBox(onMessageSent = {}, modifier = Modifier)
 }
 
 @Preview

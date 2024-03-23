@@ -24,9 +24,8 @@ fun NavGraphBuilder.addMain(navHostController: NavHostController) {
                         type = NavType.StringType
                     },
                 ),
-        ) { backStackEntry ->
-            val username = backStackEntry.arguments?.getString("username").orEmpty()
-            MessageScreen(username)
+        ) {
+            MessageScreen()
         }
     }
 }
