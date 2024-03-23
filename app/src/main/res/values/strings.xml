@@ -1,10 +1,8 @@
 <resources>
     <string name="app_name">Muzz Exercise</string>
     <string name="type_something">Type something</string>
-    <string name="welcome">Welcome</string>
-    <string name="main">Main</string>
     <string name="go_to_chat">Go to chat</string>
 
-<!--    Content description-->
+    <!--    Content description-->
     <string name="arrow_back">Arrow back</string>
 </resources>
