@@ -6,9 +6,9 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Message(
-    @PrimaryKey(autoGenerate = true) val id: Int,
+    @PrimaryKey(autoGenerate = true) var id: Long? = null,
     @ColumnInfo(name = "created_at") val createdAt: Long,
     @ColumnInfo(name = "has_been_seen") val hasBeenSeen: Boolean,
     @ColumnInfo(name = "message") val message: String,
-    @ColumnInfo(name = "is_from_me") val isFromMe: Boolean,
+    @ColumnInfo(name = "sender_id") val senderId: Long,
 )

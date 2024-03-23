@@ -13,5 +13,5 @@ interface UserDao {
 
     // Obviously this is not right (because you shouldn't insert any ) but it's for speed development purposes
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertUser(user: User)
+    suspend fun insertUser(user: User)
 }
