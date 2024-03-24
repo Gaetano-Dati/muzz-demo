@@ -79,7 +79,16 @@ fun MuzzSendMessageBox(
                 modifier =
                     Modifier
                         .clip(CircleShape)
-                        .background(color = MaterialTheme.colorScheme.primary)
+                        .background(
+                            color =
+                                if (chatBoxValue.text.isNotEmpty()) {
+                                    MaterialTheme.colorScheme.primary
+                                } else {
+                                    MaterialTheme.colorScheme.primary.copy(
+                                        alpha = 0.5f,
+                                    )
+                                },
+                        )
                         .align(Alignment.CenterVertically),
             ) {
                 Icon(
@@ -89,7 +98,14 @@ fun MuzzSendMessageBox(
                         Modifier
                             .fillMaxSize()
                             .padding(8.dp),
-                    tint = Color.White,
+                    tint =
+                        if (chatBoxValue.text.isNotEmpty()) {
+                            Color.White
+                        } else {
+                            Color.White.copy(
+                                alpha = 0.5f,
+                            )
+                        },
                 )
             }
         }
