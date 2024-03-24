@@ -15,27 +15,45 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MessageScreenViewModel
-@Inject
-constructor(
-    savedStateHandle: SavedStateHandle,
-    val userDao: UserDao,
-    val messageDao: MessageDao,
-) : ViewModel() {
-    val username: String = savedStateHandle.get<String>("username").orEmpty()
+    @Inject
+    constructor(
+        savedStateHandle: SavedStateHandle,
+        private val userDao: UserDao,
+        private val messageDao: MessageDao,
+    ) : ViewModel() {
+        private val username: String = savedStateHandle.get<String>("username").orEmpty()
 
-    private val _messages: MutableStateFlow<List<Message>> = MutableStateFlow(listOf())
-    val messages: StateFlow<List<Message>> = _messages
+        private val _userId: MutableStateFlow<String> = MutableStateFlow("")
+        val userId: StateFlow<String> = _userId
 
-    init {
-        Timber.d("Username -> $username")
-        viewModelScope.launch {
-            val userId =
-                userDao.getAllUsers().firstOrNull {
-                    it.firstName == username
-                }?.uid
+        private val _messages: MutableStateFlow<List<Message>> = MutableStateFlow(listOf())
+        val messages: StateFlow<List<Message>> = _messages
 
-            val messages = messageDao.getAllMessages()
-            Timber.d("Messages -> $messages")
+        init {
+            Timber.d("Username -> $username")
+            viewModelScope.launch {
+                _userId.value =
+                    userDao.getAllUsers().firstOrNull {
+                        it.firstName == username
+                    }?.uid.orEmpty()
+
+                val messages = messageDao.getAllMessages()
+                Timber.d("Messages -> $messages")
+                _messages.value = messages
+            }
         }
+
+        fun addMessage(message: String) =
+            viewModelScope.launch {
+                val newMessage =
+                    Message(
+                        createdAt = System.currentTimeMillis(),
+                        hasBeenSeen = false,
+                        message = message,
+                        senderId = _userId.value,
+                    )
+                messageDao.insertMessage(newMessage)
+                val newMessages = messageDao.getAllMessages()
+                _messages.value = newMessages
+            }
     }
-}
