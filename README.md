@@ -4,7 +4,7 @@ This sample application is meant for giving an example of my abilities on the An
 
 ## Technical decisions
 
-This has been built using a kind of Clean Architecture (which could be improved by adding "use-cases"), Room Database, ViewModel, Hilt for dependency Injection, Jetpack compose, StateFlow to be observed
+This has been built using a kind of Clean Architecture (which could be improved by adding "use-cases"), Room Database, ViewModel, Hilt for dependency Injection, Jetpack compose, StateFlow to be observed, for this I pbviously used the MVVM pattern, as this needs to have some observables
 
 ## How it works
 
