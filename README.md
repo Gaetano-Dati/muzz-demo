@@ -2,7 +2,11 @@
 
 This sample application is meant for giving an example of my abilities on the Android OS based on some requirements.
 
+## Technical decisions
+
 This has been built using a kind of Clean Architecture (which could be improved by adding "use-cases"), Room Database, ViewModel, Hilt for dependency Injection, Jetpack compose, StateFlow to be observed
+
+## How it works
 
 - It opens on a WelcomeScreen which has just a TopAppBar and 2 buttons at its centre: one goes to "User" chats, the other one goes to "Sarah" chats
 - At the very start, if not yet, the User entity gets populated automatically with 2 stub users
@@ -15,3 +19,4 @@ This has been built using a kind of Clean Architecture (which could be improved 
 - I just record 2 fake users, with more time I would have added some login logic so that at least a custom username could have been added
 - For making it easy, I just added a RoomDatabase but without migration policies
 - I wish I would have added more tests, but I added some basic Room tests anyway
+- I also would have added localization
