@@ -37,6 +37,10 @@ fun MessageScreen() {
             listState.animateScrollToItem(messagesList.size)
         }
 
+        if (messagesList.isEmpty()) {
+            MuzzTimestamp(timestamp = System.currentTimeMillis())
+        }
+
         LazyColumn(
             modifier =
                 Modifier
@@ -55,9 +59,6 @@ fun MessageScreen() {
                     (System.currentTimeMillis() - it.createdAt) > 3600000
                 }
             items(messagesList) { item ->
-                if (messagesList.isEmpty()) {
-                    MuzzTimestamp(timestamp = System.currentTimeMillis())
-                }
                 if (item == anHourOldMessage) {
                     MuzzTimestamp(timestamp = item.createdAt)
                 }
