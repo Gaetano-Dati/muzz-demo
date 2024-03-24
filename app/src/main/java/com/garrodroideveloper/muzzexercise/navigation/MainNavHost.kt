@@ -30,6 +30,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.garrodroideveloper.muzzexercise.R
 import com.garrodroideveloper.muzzexercise.shared.ui.components.MuzzArrowBack
+import com.garrodroideveloper.muzzexercise.shared.ui.components.MuzzMediumBoldText
 import com.garrodroideveloper.muzzexercise.shared.ui.components.MuzzTitleText
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -70,7 +71,7 @@ fun MainNavHost() {
                                         ),
                                     contentDescription = stringResource(id = R.string.profile_image),
                                 )
-                                MuzzTitleText(
+                                MuzzMediumBoldText(
                                     modifier =
                                         Modifier.padding(start = dimensionResource(id = R.dimen.single_margin)),
                                     value = username,
