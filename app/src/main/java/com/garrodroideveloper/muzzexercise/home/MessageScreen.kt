@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -19,6 +19,7 @@ import com.garrodroideveloper.muzzexercise.R
 import com.garrodroideveloper.muzzexercise.shared.ui.components.MuzzMessageMineItem
 import com.garrodroideveloper.muzzexercise.shared.ui.components.MuzzMessageOtherItem
 import com.garrodroideveloper.muzzexercise.shared.ui.components.MuzzSendMessageBox
+import com.garrodroideveloper.muzzexercise.shared.ui.components.MuzzTimestamp
 import timber.log.Timber
 
 @Composable
@@ -49,7 +50,18 @@ fun MessageScreen() {
                         height = Dimension.fillToConstraints
                     },
         ) {
-            itemsIndexed(messagesList) { index, item ->
+            val anHourOldMessage =
+                messagesList.lastOrNull {
+                    (System.currentTimeMillis() - it.createdAt) > 3600000
+                }
+            items(messagesList) { item ->
+                if (messagesList.isEmpty()) {
+                    MuzzTimestamp(timestamp = System.currentTimeMillis())
+                }
+                if (item == anHourOldMessage) {
+                    MuzzTimestamp(timestamp = item.createdAt)
+                }
+
                 if (item.senderId == userId) {
                     // My message
                     MuzzMessageMineItem(item)

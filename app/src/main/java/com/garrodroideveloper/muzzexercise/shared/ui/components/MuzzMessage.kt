@@ -2,6 +2,7 @@ package com.garrodroideveloper.muzzexercise.shared.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -38,7 +39,10 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.garrodroideveloper.muzzexercise.R
+import com.garrodroideveloper.muzzexercise.convertLongToDayOfTheWeek
+import com.garrodroideveloper.muzzexercise.convertLongToHourOfTheDay
 import com.garrodroideveloper.muzzexercise.storage.entities.Message
+import timber.log.Timber
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -181,6 +185,22 @@ fun MuzzMessageMineItem(message: Message) {
                 )
             }
         }
+    }
+}
+
+@Composable
+fun MuzzTimestamp(timestamp: Long) {
+    val dayOfTheWeek = timestamp.convertLongToDayOfTheWeek()
+    val hourOfTheDay = timestamp.convertLongToHourOfTheDay()
+    Timber.d("dateString -> $dayOfTheWeek")
+    Timber.d("hourOfTheDay -> $hourOfTheDay")
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        MuzzSmallBoldText(value = dayOfTheWeek.plus(" "))
+        MuzzSmallText(value = hourOfTheDay)
     }
 }
 
