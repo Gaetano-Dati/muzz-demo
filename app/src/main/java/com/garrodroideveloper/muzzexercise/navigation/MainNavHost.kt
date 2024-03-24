@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -35,7 +36,7 @@ fun MainNavHost() {
 
     Scaffold(
         topBar = {
-            Surface {
+            Surface(shadowElevation = 5.dp) {
                 TopAppBar(
                     colors =
                         topAppBarColors(
