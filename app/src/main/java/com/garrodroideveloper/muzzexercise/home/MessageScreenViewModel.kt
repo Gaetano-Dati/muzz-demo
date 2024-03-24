@@ -41,7 +41,7 @@ class MessageScreenViewModel
                 Timber.d("Messages -> $messages")
                 val unseenMessages =
                     messages.filter {
-                        !it.hasBeenSeen
+                        !it.hasBeenSeen && _userId.value != it.senderId
                     }
                 unseenMessages.forEach {
                     messageDao.updateMessage(true, it.id ?: 0)
