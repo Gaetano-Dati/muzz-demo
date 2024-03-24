@@ -153,13 +153,13 @@ fun MuzzMessageMineItem(message: Message) {
             Column(horizontalAlignment = Alignment.End) {
                 MuzzMediumText(value = message.message, color = MaterialTheme.colorScheme.onPrimary)
                 Image(
-                    modifier = Modifier.width(20.dp).height(20.dp),
+                    modifier = Modifier.width(15.dp).height(15.dp),
                     painter = painterResource(id = R.drawable.ic_double_check),
                     contentDescription = stringResource(id = R.string.arrow_back),
                     colorFilter =
                         ColorFilter.tint(
                             if (message.hasBeenSeen) {
-                                Color.Blue
+                                Color.Cyan
                             } else {
                                 Color.Yellow
                             },
@@ -185,5 +185,12 @@ private fun MuzzMessageOtherItemPreview() {
 @Preview
 @Composable
 private fun MuzzMessageMineItemPreview() {
-    MuzzMessageMineItem(Message(createdAt = 0, hasBeenSeen = false, message = "Mine item", senderId = ""))
+    MuzzMessageMineItem(
+        Message(
+            createdAt = 0,
+            hasBeenSeen = false,
+            message = "Mine item",
+            senderId = "",
+        ),
+    )
 }
