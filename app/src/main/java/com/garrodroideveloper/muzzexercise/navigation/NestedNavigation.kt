@@ -9,10 +9,14 @@ import androidx.navigation.navArgument
 import com.garrodroideveloper.muzzexercise.home.MessageScreen
 import com.garrodroideveloper.muzzexercise.welcome.WelcomeScreen
 
-fun NavGraphBuilder.addMain(navHostController: NavHostController) {
+fun NavGraphBuilder.addMain(
+    navHostController: NavHostController,
+    onUsernameSelected: (String) -> Unit,
+) {
     navigation(startDestination = MainNavItems.Welcome.route, route = MainNavItems.Start.route) {
         composable(MainNavItems.Welcome.route) {
             WelcomeScreen { username ->
+                onUsernameSelected(username)
                 navHostController.navigate(MainNavItems.Message.route.plus("/$username"))
             }
         }
