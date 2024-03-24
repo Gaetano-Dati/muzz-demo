@@ -39,7 +39,15 @@ class MessageScreenViewModel
 
                 val messages = messageDao.getAllMessages()
                 Timber.d("Messages -> $messages")
-                _messages.value = messages
+                val unseenMessages =
+                    messages.filter {
+                        !it.hasBeenSeen
+                    }
+                unseenMessages.forEach {
+                    messageDao.updateMessage(true, it.id ?: 0)
+                }
+                val updatedMessages = messageDao.getAllMessages()
+                _messages.value = updatedMessages
             }
         }
 
