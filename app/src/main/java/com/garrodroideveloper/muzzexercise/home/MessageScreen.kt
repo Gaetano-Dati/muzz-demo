@@ -52,7 +52,7 @@ fun MessageScreen() {
             itemsIndexed(messagesList) { index, item ->
                 if (item.senderId == userId) {
                     // My message
-                    MuzzMessageMineItem(item.message)
+                    MuzzMessageMineItem(item)
                 } else {
                     // Other message
                     MuzzMessageOtherItem(item.message)

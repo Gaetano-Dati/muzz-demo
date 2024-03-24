@@ -1,12 +1,15 @@
 package com.garrodroideveloper.muzzexercise.shared.ui.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -27,11 +30,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.garrodroideveloper.muzzexercise.R
+import com.garrodroideveloper.muzzexercise.storage.entities.Message
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -80,7 +87,10 @@ fun MuzzSendMessageBox(
                 Icon(
                     imageVector = Icons.Filled.Send,
                     contentDescription = "Send",
-                    modifier = Modifier.fillMaxSize().padding(8.dp),
+                    modifier =
+                        Modifier
+                            .fillMaxSize()
+                            .padding(8.dp),
                     tint = Color.White,
                 )
             }
@@ -112,13 +122,13 @@ fun MuzzMessageOtherItem(text: String) {
                     .padding(dimensionResource(id = R.dimen.single_margin)),
             contentAlignment = Alignment.CenterStart,
         ) {
-            MuzzSmallText(value = text, color = MaterialTheme.colorScheme.onBackground)
+            MuzzMediumText(value = text, color = MaterialTheme.colorScheme.onBackground)
         }
     }
 }
 
 @Composable
-fun MuzzMessageMineItem(text: String) {
+fun MuzzMessageMineItem(message: Message) {
     Column(
         modifier =
             Modifier
@@ -139,9 +149,23 @@ fun MuzzMessageMineItem(text: String) {
                     )
                     .background(MaterialTheme.colorScheme.primary)
                     .padding(dimensionResource(id = R.dimen.single_margin)),
-            contentAlignment = Alignment.CenterStart,
         ) {
-            MuzzSmallText(value = text, color = MaterialTheme.colorScheme.onPrimary)
+            Column(horizontalAlignment = Alignment.End) {
+                MuzzMediumText(value = message.message, color = MaterialTheme.colorScheme.onPrimary)
+                Image(
+                    modifier = Modifier.width(20.dp).height(20.dp),
+                    painter = painterResource(id = R.drawable.ic_double_check),
+                    contentDescription = stringResource(id = R.string.arrow_back),
+                    colorFilter =
+                        ColorFilter.tint(
+                            if (message.hasBeenSeen) {
+                                Color.Blue
+                            } else {
+                                Color.Yellow
+                            },
+                        ),
+                )
+            }
         }
     }
 }
@@ -161,5 +185,5 @@ private fun MuzzMessageOtherItemPreview() {
 @Preview
 @Composable
 private fun MuzzMessageMineItemPreview() {
-    MuzzMessageMineItem("Mine item")
+    MuzzMessageMineItem(Message(createdAt = 0, hasBeenSeen = false, message = "Mine item", senderId = ""))
 }
