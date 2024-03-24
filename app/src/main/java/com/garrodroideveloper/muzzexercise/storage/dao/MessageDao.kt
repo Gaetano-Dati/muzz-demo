@@ -12,4 +12,10 @@ interface MessageDao {
 
     @Insert
     suspend fun insertMessage(message: Message)
+
+    @Query("UPDATE message SET has_been_seen =:hasBeenSeen WHERE id =:messageId")
+    suspend fun updateMessage(
+        hasBeenSeen: Boolean,
+        messageId: Long,
+    )
 }
