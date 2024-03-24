@@ -18,8 +18,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
-import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -52,13 +52,11 @@ fun MuzzSendMessageBox(
         shadowElevation = 5.dp,
     ) {
         Row(modifier = Modifier.padding(dimensionResource(id = R.dimen.single_margin))) {
-            TextField(
+            OutlinedTextField(
                 colors =
-                    TextFieldDefaults.colors(
-                        disabledTextColor = Color.Transparent,
-                        focusedIndicatorColor = Color.Transparent,
-                        unfocusedIndicatorColor = Color.Transparent,
-                        disabledIndicatorColor = Color.Transparent,
+                    TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = MaterialTheme.colorScheme.primary,
+                        unfocusedBorderColor = MaterialTheme.colorScheme.onSecondary,
                     ),
                 value = chatBoxValue,
                 onValueChange = { newText ->
