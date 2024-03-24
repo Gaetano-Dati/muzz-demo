@@ -51,6 +51,21 @@ fun MuzzMediumText(
 }
 
 @Composable
+fun MuzzMediumBoldText(
+    modifier: Modifier = Modifier,
+    color: Color = MaterialTheme.colorScheme.onBackground,
+    value: String,
+) {
+    Text(
+        modifier = modifier,
+        text = value,
+        style = MaterialTheme.typography.bodyMedium,
+        fontWeight = FontWeight.Bold,
+        color = color,
+    )
+}
+
+@Composable
 fun MuzzTitleText(
     modifier: Modifier = Modifier,
     color: Color = MaterialTheme.colorScheme.onBackground,
