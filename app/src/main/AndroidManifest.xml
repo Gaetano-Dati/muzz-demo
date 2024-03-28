@@ -16,7 +16,8 @@
         <activity
             android:name=".main.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.MuzzExercise">
+            android:theme="@style/Theme.MuzzExercise"
+            android:windowSoftInputMode="adjustResize">  <!--This makes the keyboard not push out the text-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -2,6 +2,7 @@ package com.garrodroideveloper.muzzexercise.home
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -29,7 +30,12 @@ fun MessageScreen() {
     val messagesList by messageViewModel.messages.collectAsState()
     val userId by messageViewModel.userId.collectAsState()
 
-    ConstraintLayout(modifier = Modifier.fillMaxSize()) {
+    ConstraintLayout(
+        modifier =
+            Modifier
+                .imePadding() // This makes the keyboard not push out the text
+                .fillMaxSize(),
+    ) {
         val (messages, chatBox) = createRefs()
 
         val listState = rememberLazyListState()
