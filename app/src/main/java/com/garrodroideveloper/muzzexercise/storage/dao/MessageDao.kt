@@ -4,18 +4,19 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import com.garrodroideveloper.muzzexercise.storage.entities.Message
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MessageDao {
     @Query("SELECT * from Message")
-    suspend fun getAllMessages(): List<Message>
+    fun getAllMessages(): Flow<List<Message>>
 
     @Insert
     suspend fun insertMessage(message: Message)
 
-    @Query("UPDATE message SET has_been_seen =:hasBeenSeen WHERE id =:messageId")
-    suspend fun updateMessage(
+    @Query("UPDATE message SET has_been_seen = :hasBeenSeen WHERE sender_id = :senderId")
+    suspend fun updateMessages(
         hasBeenSeen: Boolean,
-        messageId: Long,
+        senderId: Long,
     )
 }

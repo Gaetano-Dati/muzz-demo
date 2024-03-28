@@ -1,4 +1,4 @@
-package com.garrodroideveloper.muzzexercise.home
+package com.garrodroideveloper.muzzexercise.message
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -27,8 +27,15 @@ import timber.log.Timber
 fun MessageScreen() {
     val messageViewModel: MessageScreenViewModel = hiltViewModel()
 
-    val messagesList by messageViewModel.messages.collectAsState()
-    val userId by messageViewModel.userId.collectAsState()
+    val messagesList by messageViewModel.messages.collectAsState(initial = emptyList())
+    val userIds by messageViewModel.userIds.collectAsState(Pair("", ""))
+    val myId = userIds.first
+
+    val listState = rememberLazyListState()
+
+    LaunchedEffect(messagesList.size) {
+        listState.scrollToItem(messagesList.lastIndex)
+    }
 
     ConstraintLayout(
         modifier =
@@ -38,16 +45,12 @@ fun MessageScreen() {
     ) {
         val (messages, chatBox) = createRefs()
 
-        val listState = rememberLazyListState()
-        LaunchedEffect(messagesList.size) {
-            listState.animateScrollToItem(messagesList.size)
-        }
-
         if (messagesList.isEmpty()) {
             MuzzTimestamp(timestamp = System.currentTimeMillis())
         }
 
         LazyColumn(
+            state = listState,
             modifier =
                 Modifier
                     .padding(top = dimensionResource(id = R.dimen.single_margin))
@@ -69,7 +72,7 @@ fun MessageScreen() {
                     MuzzTimestamp(timestamp = item.createdAt)
                 }
 
-                if (item.senderId == userId) {
+                if (item.senderId == myId) {
                     // My message
                     MuzzMessageMineItem(item)
                 } else {
@@ -90,7 +93,7 @@ fun MessageScreen() {
                     },
             onMessageSent = { message ->
                 Timber.d("Message sent -> $message")
-                messageViewModel.addMessage(message)
+                messageViewModel.addMessage(message, myId)
             },
         )
     }

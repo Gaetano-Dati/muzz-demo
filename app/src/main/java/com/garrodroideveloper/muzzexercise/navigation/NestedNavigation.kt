@@ -6,7 +6,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.navArgument
-import com.garrodroideveloper.muzzexercise.home.MessageScreen
+import com.garrodroideveloper.muzzexercise.message.MessageScreen
 import com.garrodroideveloper.muzzexercise.welcome.WelcomeScreen
 
 fun NavGraphBuilder.addMain(
