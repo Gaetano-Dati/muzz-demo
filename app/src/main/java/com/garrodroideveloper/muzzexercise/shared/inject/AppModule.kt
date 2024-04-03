@@ -2,14 +2,9 @@ package com.garrodroideveloper.muzzexercise.shared.inject
 
 import android.app.Application
 import androidx.room.Room
-import com.garrodroideveloper.muzzexercise.message.MessageRepositoryImpl
-import com.garrodroideveloper.muzzexercise.message.repository.MessageRepository
 import com.garrodroideveloper.muzzexercise.storage.dao.MessageDao
 import com.garrodroideveloper.muzzexercise.storage.dao.UserDao
 import com.garrodroideveloper.muzzexercise.storage.database.AppDatabase
-import com.garrodroideveloper.muzzexercise.user.UserRepository
-import com.garrodroideveloper.muzzexercise.user.UserRepositoryImpl
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,36 +20,26 @@ import javax.inject.Singleton
  * */
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class AppModule {
-    companion object {
-        @Provides
-        @Singleton
-        @ApplicationScope
-        fun provideApplicationCoroutineScope(): CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
-
-        @Singleton
-        @Provides
-        fun provideRoomDatabase(application: Application): AppDatabase =
-            Room.databaseBuilder(
-                application,
-                AppDatabase::class.java,
-                "room_database",
-            ).build()
-
-        @Singleton
-        @Provides
-        fun provideUserDao(appDatabase: AppDatabase): UserDao = appDatabase.userDao()
-
-        @Singleton
-        @Provides
-        fun provideMessageDao(appDatabase: AppDatabase): MessageDao = appDatabase.messageDao()
-    }
-
-    @Binds
+object AppModule {
+    @Provides
     @Singleton
-    abstract fun UserRepositoryImpl.provideUserRepository(): UserRepository
+    @ApplicationScope
+    fun provideApplicationCoroutineScope(): CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
 
-    @Binds
     @Singleton
-    abstract fun MessageRepositoryImpl.provideMessageRepository(): MessageRepository
+    @Provides
+    fun provideRoomDatabase(application: Application): AppDatabase =
+        Room.databaseBuilder(
+            application,
+            AppDatabase::class.java,
+            "room_database",
+        ).build()
+
+    @Singleton
+    @Provides
+    fun provideUserDao(appDatabase: AppDatabase): UserDao = appDatabase.userDao()
+
+    @Singleton
+    @Provides
+    fun provideMessageDao(appDatabase: AppDatabase): MessageDao = appDatabase.messageDao()
 }
