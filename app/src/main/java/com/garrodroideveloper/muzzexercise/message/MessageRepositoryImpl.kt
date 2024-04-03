@@ -5,7 +5,8 @@ import com.garrodroideveloper.muzzexercise.storage.dao.MessageDao
 import com.garrodroideveloper.muzzexercise.storage.entities.Message
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 class MessageRepositoryImpl
@@ -15,10 +16,10 @@ class MessageRepositoryImpl
     ) : MessageRepository {
         private val _messages: MutableSharedFlow<List<Message>> = MutableSharedFlow(replay = 1)
         override val messages: SharedFlow<List<Message>>
-            get() = _messages
+            get() = _messages.asSharedFlow()
 
         override suspend fun getMessages() {
-            messageDao.getAllMessages().collectLatest {
+            messageDao.getAllMessages().collect {
                 _messages.emit(it)
             }
         }

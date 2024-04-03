@@ -4,6 +4,7 @@ import com.garrodroideveloper.muzzexercise.storage.dao.UserDao
 import com.garrodroideveloper.muzzexercise.storage.entities.User
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import javax.inject.Inject
 
 class UserRepositoryImpl
@@ -13,7 +14,7 @@ class UserRepositoryImpl
     ) : UserRepository {
         private val _users = MutableSharedFlow<List<User>>(replay = 1)
         override val users: SharedFlow<List<User>>
-            get() = _users
+            get() = _users.asSharedFlow()
 
         override suspend fun getUsers() {
             userDao.getAllUsers().collect {

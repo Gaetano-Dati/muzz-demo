@@ -60,6 +60,7 @@ class MessageScreenViewModel
                         senderId = myUserId,
                     )
                 messageRepository.insertMessage(newMessage)
+                messageRepository.getMessages()
             }
         }
 

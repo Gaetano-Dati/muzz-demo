@@ -34,7 +34,9 @@ fun MessageScreen() {
     val listState = rememberLazyListState()
 
     LaunchedEffect(messagesList.size) {
-        listState.scrollToItem(messagesList.lastIndex)
+        if (messagesList.isNotEmpty()) {
+            listState.scrollToItem(messagesList.lastIndex)
+        }
     }
 
     ConstraintLayout(
@@ -67,17 +69,19 @@ fun MessageScreen() {
                 messagesList.lastOrNull {
                     (System.currentTimeMillis() - it.createdAt) > 3600000
                 }
-            items(messagesList) { item ->
-                if (item == anHourOldMessage) {
-                    MuzzTimestamp(timestamp = item.createdAt)
-                }
+            if (messagesList.isNotEmpty()) {
+                items(messagesList) { item ->
+                    if (item == anHourOldMessage) {
+                        MuzzTimestamp(timestamp = item.createdAt)
+                    }
 
-                if (item.senderId == myId) {
-                    // My message
-                    MuzzMessageMineItem(item)
-                } else {
-                    // Other message
-                    MuzzMessageOtherItem(item.message)
+                    if (item.senderId == myId) {
+                        // My message
+                        MuzzMessageMineItem(item)
+                    } else {
+                        // Other message
+                        MuzzMessageOtherItem(item.message)
+                    }
                 }
             }
         }
